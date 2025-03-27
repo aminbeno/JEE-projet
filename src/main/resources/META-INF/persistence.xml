@@ -6,6 +6,7 @@
 		<class>fpt.example.entities.Joueur</class>
 		<class>fpt.example.entities.Equipe</class>
 		<class>fpt.example.entities.Administrateur</class> <!-- Ajout de l'entité Administrateur -->
+		<class>fpt.example.entities.Formation</class> <!-- Ajout de l'entité Administrateur -->
 		<properties>
 			<!-- Connexion à la base de données -->
 			<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />

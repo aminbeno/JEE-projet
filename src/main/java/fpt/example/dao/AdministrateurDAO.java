@@ -25,4 +25,17 @@ public class AdministrateurDAO {
         }
         return admin;
     }
+    public void update(Administrateur admin) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(admin); // Utiliser merge pour mettre à jour l'entité
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 }

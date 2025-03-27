@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         // Vérifier si l'admin existe
         if (admin != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("admin", admin); // Enregistrer l'administrateur dans la session
+            session.setAttribute("administrateur", admin); // Enregistrer l'administrateur dans la session
             response.sendRedirect("dashboard.jsp"); // Redirection vers le tableau de bord après connexion
         } else {
             // Rediriger avec un message d'erreur si l'authentification échoue

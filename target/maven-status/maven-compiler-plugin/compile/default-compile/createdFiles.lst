@@ -1,4 +1,13 @@
+fpt\example\entities\Formation.class
+fpt\example\dao\AdministrateurDAO.class
 fpt\example\JoueurServlet.class
 fpt\example\MyServlet.class
-fpt\example\entities\Joueur.class
+fpt\example\entities\Administrateur.class
+fpt\example\dao\EquipeDAO.class
+fpt\example\entities\Equipe.class
+fpt\example\FormationServlet.class
+fpt\example\EquipeServlet.class
+fpt\example\dao\FormationDAO.class
 fpt\example\dao\JoueurDAO.class
+fpt\example\LoginServlet.class
+fpt\example\entities\Joueur.class

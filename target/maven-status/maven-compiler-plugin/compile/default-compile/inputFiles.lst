@@ -1,4 +1,13 @@
-D:\JEE_DEV\workspace\second_jee_project\src\main\java\fpt\example\dao\JoueurDAO.java
-D:\JEE_DEV\workspace\second_jee_project\src\main\java\fpt\example\entities\Joueur.java
-D:\JEE_DEV\workspace\second_jee_project\src\main\java\fpt\example\JoueurServlet.java
-D:\JEE_DEV\workspace\second_jee_project\src\main\java\fpt\example\MyServlet.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\dao\AdministrateurDAO.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\dao\EquipeDAO.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\dao\FormationDAO.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\dao\JoueurDAO.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\entities\Administrateur.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\entities\Equipe.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\entities\Formation.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\entities\Joueur.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\EquipeServlet.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\FormationServlet.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\JoueurServlet.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\LoginServlet.java
+C:\Projets\second_jee_project\src\main\java\fpt\example\MyServlet.java
