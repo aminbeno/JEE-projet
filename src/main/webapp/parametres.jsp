@@ -56,7 +56,7 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <a href="formation.jsp">🏫 Formation</a>
-    <a href="etudiant.jsp">🎓 Étudiant</a>
+    <a href="etudiants.jsp">🎓 Étudiant</a>
     <a href="certificat.jsp">📜 Certificat</a>
     <a href="parametres.jsp">⚙️ Paramètres</a>
     <a href="logout.jsp">🚪 Déconnexion</a>

@@ -50,7 +50,7 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <a href="formation.jsp">🏫 Formation</a>
-    <a href="etudiant.jsp">🎓 Étudiant</a>
+    <a href="etudiants.jsp">🎓 Étudiant</a>
     <a href="certificat.jsp">📜 Certificat</a>
     <a href="parametres.jsp">⚙️ Paramètres</a>
     <a href="logout.jsp">🚪 Déconnexion</a>
@@ -60,9 +60,18 @@
 <div class="content">
     <h2>Gestion des Étudiants</h2>
 
+    <%
+        // Récupération de l'ID de la formation depuis l'URL
+        String formationId = request.getParameter("formation_id");
+        if (formationId == null) {
+            out.println("<p class='text-danger'>Aucune formation sélectionnée.</p>");
+            return;
+        }
+    %>
+
     <!-- Liste des étudiants -->
     <div class="card p-4">
-        <h4>Liste des Étudiants</h4>
+        <h4>Liste des Étudiants de la Formation ID: <%= formationId %></h4>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -77,8 +86,12 @@
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jee_db", "root", "");
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM etudiant");
+
+                    // Requête SQL pour récupérer les étudiants de la formation spécifique
+                    String sql = "SELECT * FROM etudiant WHERE formation_id = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setInt(1, Integer.parseInt(formationId));
+                    ResultSet rs = pstmt.executeQuery();
 
                     while (rs.next()) {
                         int id = rs.getInt("id");
@@ -102,7 +115,7 @@
             <%
                     }
                     rs.close();
-                    stmt.close();
+                    pstmt.close();
                     conn.close();
                 } catch (Exception e) {
                     out.println("<tr><td colspan='4'>Erreur : " + e.getMessage() + "</td></tr>");
