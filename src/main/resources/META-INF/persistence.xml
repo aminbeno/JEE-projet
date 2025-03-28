@@ -2,6 +2,7 @@
 			 version="2.1">
 	<persistence-unit name="myPU">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
 		<!-- Entités -->
 		<class>fpt.example.entities.Joueur</class>
 		<class>fpt.example.entities.Etudiant</class>
