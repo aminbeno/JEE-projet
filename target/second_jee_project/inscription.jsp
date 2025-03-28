@@ -9,7 +9,6 @@
 <body>
 <div class="container mt-5">
     <h2 class="text-center">Inscription à une Formation</h2>
-
     <form action="InscriptionServlet" method="post" class="mt-4">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
