@@ -25,7 +25,7 @@
         conn.close();
 
         // Redirection vers la liste des étudiants
-        response.sendRedirect("etudiant.jsp");
+        response.sendRedirect("etudiants.jsp");
     } catch (Exception e) {
         out.println("Erreur : " + e.getMessage());
     }
