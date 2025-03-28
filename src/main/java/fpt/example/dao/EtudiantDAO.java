@@ -1,6 +1,5 @@
 package fpt.example.dao;
 
-
 import fpt.example.entities.Etudiant;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
