@@ -1,6 +1,5 @@
 package fpt.example.entities;
 
-
 import jakarta.persistence.*;
 
 @Entity
