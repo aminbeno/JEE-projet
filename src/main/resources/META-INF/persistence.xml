@@ -4,6 +4,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<!-- Entités -->
 		<class>fpt.example.entities.Joueur</class>
+		<class>fpt.example.entities.Etudiant</class>
 		<class>fpt.example.entities.Equipe</class>
 		<class>fpt.example.entities.Administrateur</class> <!-- Ajout de l'entité Administrateur -->
 		<class>fpt.example.entities.Formation</class> <!-- Ajout de l'entité Administrateur -->
