@@ -6,125 +6,311 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestion des Étudiants</title>
-
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            top: 56px;
-            left: 0;
-            background-color: #343a40;
-            padding-top: 15px;
+        body {
+            background: #ffffff; /* Fond blanc */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
-        .sidebar a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 16px;
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.6rem;
             color: white;
-            display: block;
-            border-radius: 5px;
         }
-        .sidebar a:hover {
-            background-color: #495057;
+        .navbar-brand i {
+            margin-right: 8px;
         }
+
+        /* Sidebar */
+        .sidebar {
+            height: calc(100vh - 70px);
+            width: 260px;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            background: #f8f9fa;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        .sidebar .nav-link {
+            color: #2c3e50;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        .sidebar .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background: linear-gradient(90deg, #007bff, #0062cc);
+            color: white;
+        }
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link.active i {
+            color: white;
+        }
+
+        /* Content */
         .content {
             margin-left: 260px;
-            padding: 20px;
+            padding: 30px 40px;
+            min-height: calc(100vh - 70px);
+        }
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        .card-header {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            padding: 1.5rem;
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+        }
+        .card-header h4 {
+            color: white;
+            font-weight: 700;
+            margin: 0;
+        }
+        .card-body {
+            padding: 2.5rem;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead {
+            background: #f8f9fa;
+        }
+        .table th {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .btn-toggle {
+            background: linear-gradient(90deg, #28a745, #218838);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-toggle.interdit {
+            background: linear-gradient(90deg, #dc3545, #c82333);
+        }
+        .btn-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .alert {
+            border-radius: 10px;
+            padding: 1rem;
+            font-weight: 500;
+        }
+        .btn-back {
+            background: linear-gradient(90deg, #007bff, #0062cc);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .btn-back:hover {
+            background: linear-gradient(90deg, #0062cc, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .sidebar {
+                left: -260px;
+            }
+            .sidebar.active {
+                left: 0;
+                z-index: 1000;
+            }
+            .content {
+                margin-left: 0;
+            }
+            .navbar-toggler {
+                display: block !important;
+                border: none;
+            }
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
         }
     </style>
 </head>
 <body>
 
 <!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" id="sidebarToggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </nav>
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <a href="formation.jsp">🏫 Formation</a>
-    <a href="etudiants.jsp">🎓 Étudiant</a>
-    <a href="certificat.jsp">📜 Certificat</a>
-    <a href="parametres.jsp">⚙️ Paramètres</a>
-    <a href="logout.jsp">🚪 Déconnexion</a>
+    <a href="formation.jsp" class="nav-link">
+        <i class="fas fa-chalkboard-teacher"></i> Formations
+    </a>
+    <a href="etudiants.jsp" class="nav-link active">
+        <i class="fas fa-users"></i> Étudiants
+    </a>
+    <a href="certificat.jsp" class="nav-link">
+        <i class="fas fa-certificate"></i> Certificats
+    </a>
+    <a href="parametres.jsp" class="nav-link">
+        <i class="fas fa-cog"></i> Paramètres
+    </a>
+    <a href="logout.jsp" class="nav-link">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+    </a>
 </div>
 
 <!-- Contenu principal -->
 <div class="content">
-    <h2>Gestion des Étudiants</h2>
+    <h2 class="mb-4">Gestion des Étudiants</h2>
 
     <%
-        // Récupération de l'ID de la formation depuis l'URL
         String formationId = request.getParameter("formation_id");
-        if (formationId == null) {
-            out.println("<p class='text-danger'>Aucune formation sélectionnée.</p>");
-            return;
+        if (formationId == null || formationId.trim().isEmpty()) {
+    %>
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle me-2"></i> Aucune formation sélectionnée. Veuillez choisir une formation depuis la page des formations.
+    </div>
+    <a href="formation.jsp" class="btn btn-back"><i class="fas fa-arrow-left me-2"></i> Retour aux formations</a>
+    <%
+    } else {
+    %>
+    <!-- Liste des étudiants -->
+    <div class="card">
+        <div class="card-header">
+            <h4><i class="fas fa-users me-2"></i> Étudiants de la Formation ID: <%= formationId %></h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Certificat</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jee_db", "root", "");
+                            String sql = "SELECT * FROM etudiant WHERE formation_id = ?";
+                            PreparedStatement pstmt = conn.prepareStatement(sql);
+                            pstmt.setInt(1, Integer.parseInt(formationId));
+                            ResultSet rs = pstmt.executeQuery();
+
+                            if (!rs.isBeforeFirst()) { // Vérifie si le résultat est vide
+                    %>
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Aucun étudiant inscrit à cette formation.</td>
+                    </tr>
+                    <%
+                    } else {
+                        while (rs.next()) {
+                            int id = rs.getInt("id");
+                            String nom = rs.getString("nom");
+                            String email = rs.getString("email");
+                            boolean interdit = rs.getBoolean("certificat_interdit");
+                    %>
+                    <tr>
+                        <td><%= id %></td>
+                        <td><%= nom %></td>
+                        <td><%= email %></td>
+                        <td>
+                            <form action="modifierInterdiction.jsp" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="<%= id %>">
+                                <input type="hidden" name="formation_id" value="<%= formationId %>">
+                                <button type="submit" class="btn btn-toggle <%= interdit ? "interdit" : "" %>">
+                                    <i class="fas <%= interdit ? "fa-ban" : "fa-check" %> me-1"></i>
+                                    <%= interdit ? "Interdit" : "Autorisé" %>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <%
+                            }
+                        }
+                        rs.close();
+                        pstmt.close();
+                        conn.close();
+                    } catch (Exception e) {
+                    %>
+                    <tr>
+                        <td colspan="4" class="text-danger text-center">
+                            <i class="fas fa-exclamation-circle me-2"></i> Erreur : <%= e.getMessage() %>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                    </tbody>
+                </table>
+            </div>
+            <a href="formation.jsp" class="btn btn-back mt-3"><i class="fas fa-arrow-left me-2"></i> Retour aux formations</a>
+        </div>
+    </div>
+    <%
         }
     %>
-
-    <!-- Liste des étudiants -->
-    <div class="card p-4">
-        <h4>Liste des Étudiants de la Formation ID: <%= formationId %></h4>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Interdiction de Certificat</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jee_db", "root", "");
-
-                    // Requête SQL pour récupérer les étudiants de la formation spécifique
-                    String sql = "SELECT * FROM etudiant WHERE formation_id = ?";
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                    pstmt.setInt(1, Integer.parseInt(formationId));
-                    ResultSet rs = pstmt.executeQuery();
-
-                    while (rs.next()) {
-                        int id = rs.getInt("id");
-                        String nom = rs.getString("nom");
-                        String email = rs.getString("email");
-                        boolean interdit = rs.getBoolean("certificat_interdit");
-            %>
-            <tr>
-                <td><%= id %></td>
-                <td><%= nom %></td>
-                <td><%= email %></td>
-                <td>
-                    <form action="modifierInterdiction.jsp" method="post">
-                        <input type="hidden" name="id" value="<%= id %>">
-                        <button type="submit" class="btn <%= interdit ? "btn-danger" : "btn-success" %>">
-                            <%= interdit ? "Interdit ❌" : "Autorisé ✅" %>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            <%
-                    }
-                    rs.close();
-                    pstmt.close();
-                    conn.close();
-                } catch (Exception e) {
-                    out.println("<tr><td colspan='4'>Erreur : " + e.getMessage() + "</td></tr>");
-                }
-            %>
-            </tbody>
-        </table>
-    </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        content.classList.toggle('shifted');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 991 &&
+            !sidebar.contains(e.target) &&
+            !sidebarToggle.contains(e.target) &&
+            sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
